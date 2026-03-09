@@ -4,68 +4,176 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manage Users</title>
-    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f4f6f9;
+      }
+
+      /* HEADER */
+
+      header {
+        background: #1e293b;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      /* MAIN */
+
+      .container {
+        padding: 40px;
+      }
+
+      /* TABLE */
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+      }
+
+      th {
+        background: #2563eb;
+        color: white;
+      }
+
+      button {
+        padding: 8px 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .delete-btn {
+        background: #ef4444;
+        color: white;
+      }
+
+      .delete-btn:hover {
+        background: #dc2626;
+      }
+
+      /* FORM */
+
+      .form-box {
+        margin-top: 40px;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+      }
+
+      .form-box input,
+      .form-box select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .add-btn {
+        background: #2563eb;
+        color: white;
+      }
+
+      .add-btn:hover {
+        background: #1d4ed8;
+      }
+    </style>
   </head>
 
   <body>
-    <h1>Manage Users</h1>
+    <header>
+      <h2>Admin Panel</h2>
 
-    <a href="admin.html">← Back to Admin Dashboard</a>
+      <nav>
+        <a href="admin.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="login.html">Logout</a>
+      </nav>
+    </header>
 
-    <hr />
+    <div class="container">
+      <h1>Manage Users</h1>
 
-    <h2>User List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-    <table border="1" width="60%">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+        <tbody id="userTable">
+          <tr>
+            <td>1</td>
+            <td>Ana Cruz</td>
+            <td>ana@email.com</td>
+            <td>
+              <button class="delete-btn" onclick="deleteRow(this)">
+                Delete
+              </button>
+            </td>
+          </tr>
 
-      <tbody id="userTable">
-        <tr>
-          <td>1</td>
-          <td>Ana Cruz</td>
-          <td>ana@email.com</td>
-          <td><button onclick="deleteRow(this)">Delete</button></td>
-        </tr>
+          <tr>
+            <td>2</td>
+            <td>Juan Dela Cruz</td>
+            <td>juan@email.com</td>
+            <td>
+              <button class="delete-btn" onclick="deleteRow(this)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <tr>
-          <td>2</td>
-          <td>Juan Dela Cruz</td>
-          <td>juan@email.com</td>
-          <td><button onclick="deleteRow(this)">Delete</button></td>
-        </tr>
-      </tbody>
-    </table>
+      <div class="form-box">
+        <h3>Add New User</h3>
 
-    <hr />
+        <form id="addUserForm">
+          <label>Name</label>
+          <input type="text" id="name" required />
 
-    <h2>Add New User</h2>
+          <label>Email</label>
+          <input type="email" id="email" required />
 
-    <form id="addUserForm">
-      <label>Name:</label><br />
-      <input type="text" id="name" required />
-      <br /><br />
+          <label>Role</label>
+          <select id="role">
+            <option>User</option>
+            <option>Admin</option>
+          </select>
 
-      <label>Email:</label><br />
-      <input type="email" id="email" required />
-      <br /><br />
-
-      <label>Role:</label><br />
-      <select id="role">
-        <option>User</option>
-        <option>Admin</option>
-      </select>
-
-      <br /><br />
-
-      <button type="submit">Add User</button>
-    </form>
+          <button class="add-btn" type="submit">Add User</button>
+        </form>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

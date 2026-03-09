@@ -4,31 +4,134 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      /* PAGE */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f4f6f9;
+      }
+
+      /* HEADER */
+      header {
+        background: #1e293b;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header h2 {
+        margin: 0;
+      }
+
+      nav a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      /* MAIN CONTAINER */
+      .container {
+        padding: 40px;
+      }
+
+      /* DASHBOARD CARDS */
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+      }
+
+      .card {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .card h3 {
+        margin-top: 0;
+      }
+
+      .card button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background: #2563eb;
+        color: white;
+        cursor: pointer;
+      }
+
+      .card button:hover {
+        background: #1d4ed8;
+      }
+
+      /* FOOTER */
+      footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        background: #e5e7eb;
+      }
+    </style>
   </head>
 
   <body>
-    <h1>Admin Dashboard</h1>
-    <p>Welcome, Admin!</p>
-    <p>Select an option below:</p>
+    <header>
+      <h2>Admin Dashboard</h2>
 
-    <hr />
+      <nav>
+        <a href="profile.html">Profile</a>
+        <a href="manage-users.html">Manage Users</a>
+        <a href="login.html">Logout</a>
+      </nav>
+    </header>
 
-    <nav>
-      <ul>
-        <li><a href="manage-users.html">Manage Users</a></li>
-        <li><a href="profile.html">Back to Profile</a></li>
-        <li><a href="login.html">Logout</a></li>
-      </ul>
-    </nav>
+    <div class="container">
+      <h1>Welcome Admin 👑</h1>
+      <p>Use the dashboard to manage the system.</p>
 
-    <hr />
+      <div class="dashboard">
+        <div class="card">
+          <h3>Manage Users</h3>
+          <p>Add or delete system users.</p>
+          <button onclick="location.href = 'manage-users.html'">Open</button>
+        </div>
 
-    <section>
-      <h2>System Information</h2>
-      <p>This admin panel allows the administrator to manage users.</p>
-      <p>You can add or delete users in the Manage Users page.</p>
-    </section>
+        <div class="card">
+          <h3>User Profile</h3>
+          <p>View your profile information.</p>
+          <button onclick="location.href = 'profile.html'">View</button>
+        </div>
+
+        <div class="card">
+          <h3>System Settings</h3>
+          <p>Update account settings.</p>
+          <button onclick="location.href = 'settings.html'">Open</button>
+        </div>
+
+        <div class="card">
+          <h3>Logout</h3>
+          <p>Exit the admin dashboard.</p>
+          <button onclick="location.href = 'login.html'">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Admin Panel | EJ SpeedZone</p>
+    </footer>
 
     <script src="script.js"></script>
   </body>
