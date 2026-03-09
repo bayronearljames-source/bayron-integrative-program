@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>Manage Users</h1>
+
+    <a href="admin.html">← Back to Admin Dashboard</a>
+
+    <hr />
+
+    <h2>User List</h2>
+
+    <table border="1" width="60%">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="userTable">
+        <tr>
+          <td>1</td>
+          <td>Ana Cruz</td>
+          <td>ana@email.com</td>
+          <td><button onclick="deleteRow(this)">Delete</button></td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>Juan Dela Cruz</td>
+          <td>juan@email.com</td>
+          <td><button onclick="deleteRow(this)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr />
+
+    <h2>Add New User</h2>
+
+    <form id="addUserForm">
+      <label>Name:</label><br />
+      <input type="text" id="name" required />
+      <br /><br />
+
+      <label>Email:</label><br />
+      <input type="email" id="email" required />
+      <br /><br />
+
+      <label>Role:</label><br />
+      <select id="role">
+        <option>User</option>
+        <option>Admin</option>
+      </select>
+
+      <br /><br />
+
+      <button type="submit">Add User</button>
+    </form>
+
+    <script src="script.js"></script>
+  </body>
+</html>
