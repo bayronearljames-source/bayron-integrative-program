@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>University Search App</title>
+    <style>
+      /* General layout */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #f0f4f8, #d9e4ec);
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      p {
+        color: #555;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* Search box */
+      .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        justify-content: center;
+      }
+
+      input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        max-width: 300px;
+      }
+
+      button {
+        padding: 10px 15px;
+        background-color: #2980b9;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #1f6391;
+      }
+
+      /* Results */
+      #result ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      #result li {
+        margin: 10px 0;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #f9f9f9;
+        transition: transform 0.2s ease;
+      }
+
+      #result li:hover {
+        transform: scale(1.02);
+        background: #eef6fb;
+      }
+
+      #result li strong {
+        font-size: 1.1em;
+        color: #2c3e50;
+      }
+
+      #result a {
+        text-decoration: none;
+        color: #2980b9;
+      }
+
+      #result a:hover {
+        text-decoration: underline;
+      }
+
+      .error {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+      }
+
+      footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🎓 University Search App</h1>
+      <p>Enter a country name to find universities:</p>
+
+      <div class="search-box">
+        <input type="text" id="countryInput" placeholder="e.g. Philippines" />
+        <button onclick="getUniversities()">Search</button>
+      </div>
+
+      <div id="result"></div>
+
+      <footer>
+        <p>Powered by Hipolabs Universities API</p>
+      </footer>
+    </div>
+
+    <script>
+      async function getUniversities() {
+        const country = document.getElementById("countryInput").value.trim();
+        const resultDiv = document.getElementById("result");
+
+        if (!country) {
+          resultDiv.innerHTML =
+            "<p class='error'>⚠️ Please enter a country name.</p>";
+          return;
+        }
+
+        const url = `http://universities.hipolabs.com/search?country=${country}`;
+
+        try {
+          resultDiv.innerHTML = "<p>🔎 Searching...</p>"; // loading message
+
+          const response = await fetch(url);
+          if (!response.ok) throw new Error("Failed to fetch universities");
+
+          const data = await response.json();
+
+          if (data.length === 0) {
+            resultDiv.innerHTML =
+              "<p class='error'>❌ No universities found.</p>";
+            return;
+          }
+
+          let list = "<ul>";
+          data.forEach((university) => {
+            list += `
+            <li>
+              <strong>${university.name}</strong><br>
+              <a href="${university.web_pages[0]}" target="_blank">${university.web_pages[0]}</a>
+            </li>`;
+          });
+          list += "</ul>";
+
+          resultDiv.innerHTML = list;
+        } catch (error) {
+          resultDiv.innerHTML =
+            "<p class='error'>❌ Error: " + error.message + "</p>";
+        }
+      }
+    </script>
+  </body>
+</html>
