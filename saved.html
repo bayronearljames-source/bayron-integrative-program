@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Saved Universities</title>
+
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 850px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+
+      .back-link {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .back-link a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+
+      .back-link a:hover {
+        text-decoration: underline;
+      }
+
+      ul {
+        padding: 0;
+      }
+
+      li {
+        list-style: none;
+        margin: 15px 0;
+        padding: 20px;
+        border-radius: 12px;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+
+      li:hover {
+        transform: translateY(-5px);
+      }
+
+      strong {
+        font-size: 1.2em;
+        color: #2c3e50;
+      }
+
+      a {
+        color: #2980b9;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .delete-btn {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: none;
+        background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .delete-btn:hover {
+        transform: scale(1.05);
+      }
+
+      .empty {
+        text-align: center;
+        color: #777;
+        margin-top: 30px;
+        font-size: 1.1em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>💾 Saved Universities</h1>
+
+      <div class="back-link">
+        <a href="index.html">⬅ Back to Search</a>
+      </div>
+
+      <ul id="savedList"></ul>
+    </div>
+
+    <script>
+      function loadSaved() {
+        const saved =
+          JSON.parse(localStorage.getItem("savedUniversities")) || [];
+        const list = document.getElementById("savedList");
+
+        if (saved.length === 0) {
+          list.innerHTML = "<p class='empty'>No saved universities yet 😢</p>";
+          return;
+        }
+
+        list.innerHTML = "";
+
+        saved.forEach((uni, index) => {
+          list.innerHTML += `
+      <li>
+        <strong>${uni.name}</strong><br>
+        <a href="${uni.website}" target="_blank">${uni.website}</a><br>
+        <button class="delete-btn" onclick="deleteItem(${index})">
+          🗑 Delete
+        </button>
+      </li>
+    `;
+        });
+      }
+
+      function deleteItem(index) {
+        let saved = JSON.parse(localStorage.getItem("savedUniversities")) || [];
+
+        saved.splice(index, 1);
+
+        localStorage.setItem("savedUniversities", JSON.stringify(saved));
+
+        loadSaved();
+      }
+
+      loadSaved();
+    </script>
+  </body>
+</html>
