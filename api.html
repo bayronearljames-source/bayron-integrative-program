@@ -7,7 +7,7 @@
     <style>
       body {
         font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        background: linear-gradient(135deg, #0099ff, #acb6e5);
         margin: 0;
         padding: 0;
       }
@@ -25,7 +25,6 @@
       h1 {
         text-align: center;
         color: #2c3e50;
-        margin-bottom: 10px;
       }
 
       p {
@@ -65,6 +64,18 @@
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
       }
 
+      .save-btn {
+        margin-top: 10px;
+        background: linear-gradient(135deg, #003f91, #003f91);
+      }
+
+      /* ✅ DONE BUTTON STYLE */
+      .done-btn {
+        margin-top: 10px;
+        background: linear-gradient(135deg, #95a5a6, #bdc3c7);
+        cursor: default;
+      }
+
       .saved-link {
         text-align: center;
         margin-bottom: 15px;
@@ -74,10 +85,6 @@
         text-decoration: none;
         font-weight: bold;
         color: #2c3e50;
-      }
-
-      .saved-link a:hover {
-        text-decoration: underline;
       }
 
       #result ul {
@@ -91,11 +98,6 @@
         border-radius: 12px;
         background: white;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease;
-      }
-
-      #result li:hover {
-        transform: translateY(-5px);
       }
 
       strong {
@@ -108,26 +110,10 @@
         text-decoration: none;
       }
 
-      a:hover {
-        text-decoration: underline;
-      }
-
-      .save-btn {
-        margin-top: 10px;
-        background: linear-gradient(135deg, #27ae60, #2ecc71);
-      }
-
       .error {
         color: red;
         text-align: center;
         font-weight: bold;
-      }
-
-      footer {
-        margin-top: 25px;
-        text-align: center;
-        color: #777;
-        font-size: 0.9em;
       }
     </style>
   </head>
@@ -135,7 +121,7 @@
   <body>
     <div class="container">
       <h1>🎓 University Search</h1>
-      <p>Find and save universities around the world</p>
+      <p>Find and save universities</p>
 
       <div class="search-box">
         <input type="text" id="countryInput" placeholder="e.g. Philippines" />
@@ -147,8 +133,6 @@
       </div>
 
       <div id="result"></div>
-
-      <footer>Powered by Hipolabs API</footer>
     </div>
 
     <script>
@@ -178,13 +162,20 @@
           let list = "<ul>";
 
           data.forEach((uni) => {
+            const saved = isSaved(uni.name);
+
             list += `
         <li>
           <strong>${uni.name}</strong><br>
           <a href="${uni.web_pages[0]}" target="_blank">${uni.web_pages[0]}</a><br>
-          <button class="save-btn" onclick='saveUniversity(${JSON.stringify(uni)})'>
-            💾 Save
-          </button>
+
+          ${
+            saved
+              ? `<button class="done-btn" disabled>✅ Done</button>`
+              : `<button class="save-btn" onclick='saveUniversity(${JSON.stringify(uni)})'>
+                  💾 Save
+                </button>`
+          }
         </li>
       `;
           });
@@ -196,6 +187,14 @@
         }
       }
 
+      /* ✅ CHECK IF SAVED */
+      function isSaved(name) {
+        const saved =
+          JSON.parse(localStorage.getItem("savedUniversities")) || [];
+        return saved.some((item) => item.name === name);
+      }
+
+      /* ✅ SAVE FUNCTION */
       function saveUniversity(uni) {
         let saved = JSON.parse(localStorage.getItem("savedUniversities")) || [];
 
@@ -212,7 +211,11 @@
         });
 
         localStorage.setItem("savedUniversities", JSON.stringify(saved));
+
         alert("✅ Saved!");
+
+        // 🔥 Refresh UI
+        getUniversities();
       }
     </script>
   </body>
