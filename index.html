@@ -9,15 +9,16 @@
 
   <body>
     <!-- HEADER -->
-    <!-- HEADER -->
     <header class="header">
       <div class="container header-content">
-        <h2 class="logo">EJ SpeedZone</h2>
+        <a href="index.html" class="logo-link">
+          <h2 class="logo">EJ SpeedZone</h2>
+        </a>
         <div class="auth-buttons">
+          <a href="api.html" class="api-btn">⚡ SEARCH</a>
           <a href="profile.html" class="login-btn">Profile</a>
           <a href="settings.html" class="login-btn">Settings</a>
           <a href="login.html" class="login-btn">Log In</a>
-          <!-- Sign Up button removed from landing page -->
         </div>
       </div>
     </header>
@@ -26,34 +27,34 @@
     <section class="hero">
       <div class="hero-overlay">
         <div class="hero-text">
-          <h1>EJ SpeedZone</h1>
+          <h1>Rev Up Your Knowledge — Everything About Motorcycles</h1>
           <p>
-            Your one-stop online shop for high-quality motor and automotive
+            Your one‑stop online shop for high‑quality motor and automotive
             parts.
           </p>
-          <a class="cta-btn" href="#">Shop Now</a>
+          <a class="cta-btn" href="#categories">Shop Now</a>
         </div>
       </div>
     </section>
 
     <!-- ABOUT SECTION -->
-    <section class="section light">
+    <section class="section light" id="about">
       <div class="container">
         <h2>About Our Store</h2>
         <p class="center-text">
           EJ SpeedZone Motorparts is your trusted online shop for motorcycle and
-          car parts. We provide reliable, affordable, and high-quality products
+          car parts. We provide reliable, affordable, and high‑quality products
           to keep your vehicles running smoothly.
         </p>
       </div>
     </section>
 
     <!-- CATEGORIES -->
-    <section class="section">
+    <section class="section" id="categories">
       <div class="container">
         <h2>Shop by Category</h2>
 
-        <div class="features">
+        <div class="features feature-cards">
           <div class="card">
             <img
               src="images/motorbike-anatomy.jpg"
@@ -62,14 +63,22 @@
             />
             <h3>Engine Parts</h3>
             <p>Durable engine components for maximum performance.</p>
-            <a class="category-btn" href="#">View Products</a>
+            <a class="category-btn" href="products.html?category=engine">
+              View Products
+            </a>
           </div>
 
           <div class="card">
-            <img src="images/brakes.webp" alt="Brakes" class="card-img" />
+            <img
+              src="images/brakes.webp"
+              alt="Brakes & Safety"
+              class="card-img"
+            />
             <h3>Brakes & Safety</h3>
             <p>Brake pads, discs, and other safety components.</p>
-            <a class="category-btn" href="#">View Products</a>
+            <a class="category-btn" href="products.html?category=brakes">
+              View Products
+            </a>
           </div>
 
           <div class="card">
@@ -80,22 +89,24 @@
             />
             <h3>Accessories</h3>
             <p>Helmets, lights, and other riding accessories.</p>
-            <a class="category-btn" href="#">View Products</a>
+            <a class="category-btn" href="products.html?category=accessories">
+              View Products
+            </a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- WHY CHOOSE US -->
-    <section class="section light">
+    <section class="section light" id="features">
       <div class="container">
         <h2>Why Choose SpeedZone?</h2>
 
-        <div class="features">
+        <div class="features feature-badges">
           <div class="card">
             <h3>Trusted Quality</h3>
             <p>
-              All products are carefully selected to meet high-quality
+              All products are carefully selected to meet high‑quality
               standards.
             </p>
           </div>
@@ -113,9 +124,36 @@
       </div>
     </section>
 
+    <!-- CONTACT / CALL TO ACTION -->
+    <section class="section cta-block">
+      <div class="container">
+        <h2>Need Help Choosing Parts?</h2>
+        <p class="center-text">
+          Contact us today and we'll recommend the right parts for your bike or
+          car.
+        </p>
+        <a href="contact.html" class="cta-btn">Contact Us</a>
+      </div>
+    </section>
+
     <!-- FOOTER -->
     <footer>
-      <p>© 2026 SpeedZone Motorparts | Created by Earl James Bayron</p>
+      <div class="container">
+        <p>© 2026 SpeedZone Motorparts | Created by Earl James Bayron</p>
+      </div>
     </footer>
+
+    <script>
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
   </body>
 </html>

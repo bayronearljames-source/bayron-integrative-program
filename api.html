@@ -2,221 +2,660 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>University Search App</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EJ SpeedZone | Motorcycle Parts Finder - Save Feature</title>
     <style>
-      body {
-        font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(135deg, #0099ff, #acb6e5);
+      * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .header {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px);
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
       }
 
       .container {
-        max-width: 850px;
-        margin: 50px auto;
-        padding: 30px;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        width: 90%;
+        max-width: 1400px;
+        margin: 0 auto;
       }
 
-      h1 {
-        text-align: center;
-        color: #2c3e50;
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
       }
 
-      p {
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+
+      .logo span {
+        color: #ff6b6b;
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .nav-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1.2rem;
+        border-radius: 30px;
+        transition: 0.3s;
+      }
+
+      .nav-btn:hover {
+        background: #ff6b6b;
+        transform: translateY(-2px);
+      }
+
+      .saved-count {
+        background: #ff6b6b;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem 0;
         text-align: center;
-        color: #555;
+        color: white;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      .search-section {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-title {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid #ff6b6b;
+        padding-left: 1rem;
       }
 
       .search-box {
         display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin: 20px 0;
+        gap: 1rem;
         flex-wrap: wrap;
+        margin-bottom: 1.5rem;
       }
 
-      input {
-        padding: 12px;
-        border-radius: 8px;
-        border: none;
-        width: 250px;
+      .search-input {
+        flex: 2;
+        padding: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: 0.3s;
+      }
+
+      .search-input:focus {
         outline: none;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        border-color: #ff6b6b;
       }
 
-      button {
-        padding: 12px 18px;
-        border-radius: 8px;
-        border: none;
-        background: linear-gradient(135deg, #2980b9, #6dd5fa);
-        color: white;
+      .filter-select {
+        flex: 1;
+        padding: 1rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 1rem;
         cursor: pointer;
-        transition: all 0.3s ease;
       }
 
-      button:hover {
+      .search-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0 2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .search-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .results-section {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .results-count {
+        font-size: 1.1rem;
+        color: #666;
+      }
+
+      .results-count span {
+        color: #ff6b6b;
+        font-weight: bold;
+        font-size: 1.3rem;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .product-card {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 1.5rem;
+        transition: 0.3s;
+        border: 1px solid #e0e0e0;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        border-color: #ff6b6b;
+      }
+
+      .product-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-category {
+        display: inline-block;
+        background: #e3f2fd;
+        color: #1976d2;
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .product-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ff6b6b;
+        margin: 0.5rem 0;
+      }
+
+      .product-stock {
+        color: #4caf50;
+        font-weight: 500;
+        margin: 0.5rem 0;
+      }
+
+      .product-details {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 0.5rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid #e0e0e0;
       }
 
       .save-btn {
-        margin-top: 10px;
-        background: linear-gradient(135deg, #003f91, #003f91);
-      }
-
-      /* ✅ DONE BUTTON STYLE */
-      .done-btn {
-        margin-top: 10px;
-        background: linear-gradient(135deg, #95a5a6, #bdc3c7);
-        cursor: default;
-      }
-
-      .saved-link {
-        text-align: center;
-        margin-bottom: 15px;
-      }
-
-      .saved-link a {
-        text-decoration: none;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 1rem;
         font-weight: bold;
-        color: #2c3e50;
+        transition: 0.3s;
       }
 
-      #result ul {
-        padding: 0;
+      .save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
       }
 
-      #result li {
-        list-style: none;
-        margin: 15px 0;
-        padding: 20px;
+      .save-btn.saved {
+        background: #4caf50;
+      }
+
+      .toast-message {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #4caf50;
+        color: white;
+        padding: 1rem 1.5rem;
         border-radius: 12px;
-        background: white;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        animation: slideIn 0.3s ease;
       }
 
-      strong {
-        font-size: 1.2em;
-        color: #2c3e50;
+      .toast-message.error {
+        background: #f44336;
       }
 
-      a {
-        color: #2980b9;
-        text-decoration: none;
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
       }
 
-      .error {
-        color: red;
+      .footer {
+        background: #1a1a2e;
+        color: white;
         text-align: center;
-        font-weight: bold;
+        padding: 2rem;
+        margin-top: 2rem;
       }
     </style>
   </head>
-
   <body>
-    <div class="container">
-      <h1>🎓 University Search</h1>
-      <p>Find and save universities</p>
-
-      <div class="search-box">
-        <input type="text" id="countryInput" placeholder="e.g. Philippines" />
-        <button onclick="getUniversities()">Search</button>
+    <header class="header">
+      <div class="container header-content">
+        <div class="logo">EJ SpeedZone <span>🔍 Parts Finder</span></div>
+        <div class="nav-buttons">
+          <a href="index.html" class="nav-btn">← Home</a>
+          <a href="saved.html" class="nav-btn"
+            >💾 Saved Items
+            <span id="savedCountBadge" class="saved-count">0</span></a
+          >
+        </div>
       </div>
+    </header>
 
-      <div class="saved-link">
-        <a href="saved.html">📂 View Saved Universities</a>
+    <div class="hero">
+      <div class="container">
+        <h1>🔍 Motorcycle Parts Finder</h1>
+        <p>Search and save your favorite motorcycle parts to your collection</p>
       </div>
-
-      <div id="result"></div>
     </div>
 
+    <div class="container">
+      <!-- Search Section -->
+      <div class="search-section">
+        <h2 class="search-title">🔎 Search Motorcycle Parts</h2>
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchQuery"
+            class="search-input"
+            placeholder="Search by name, category, or brand..."
+          />
+          <select id="categoryFilter" class="filter-select">
+            <option value="all">All Categories</option>
+            <option value="engine">Engine Parts</option>
+            <option value="brakes">Brakes & Safety</option>
+            <option value="accessories">Accessories</option>
+            <option value="electrical">Electrical</option>
+          </select>
+          <button class="search-btn" onclick="searchProducts()">
+            🔍 Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      <div class="results-section">
+        <div class="results-header">
+          <h2 class="search-title">📦 Search Results</h2>
+          <div class="results-count">
+            Found <span id="resultCount">0</span> products
+          </div>
+        </div>
+        <div id="resultsContainer" class="product-grid">
+          <!-- Results will be displayed here -->
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p>
+          ⚡ EJ SpeedZone Motorcycle Parts Finder | Save your favorite parts to
+          localStorage
+        </p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem">
+          Data persists after page refresh | No duplicate saves allowed
+        </p>
+      </div>
+    </footer>
+
     <script>
-      async function getUniversities() {
-        const country = document.getElementById("countryInput").value.trim();
-        const resultDiv = document.getElementById("result");
+      // Motorcycle Products Database (API Simulation)
+      const motorcycleProducts = [
+        {
+          id: 1,
+          name: "Performance Air Filter",
+          price: 850,
+          stock: 12,
+          category: "engine",
+          brand: "K&N",
+          compatibility: ["Honda", "Yamaha", "Suzuki", "Kawasaki"],
+          description:
+            "High-flow performance air filter that increases horsepower and acceleration.",
+          image: "airfilter.jpg",
+        },
+        {
+          id: 2,
+          name: "Sintered Brake Pads",
+          price: 1200,
+          stock: 8,
+          category: "brakes",
+          brand: "EBC Brakes",
+          compatibility: ["Honda CBR", "Yamaha R6", "Suzuki GSX-R"],
+          description:
+            "High-performance sintered brake pads for superior stopping power.",
+          image: "brakepads.jpg",
+        },
+        {
+          id: 3,
+          name: "LED Headlight Kit",
+          price: 950,
+          stock: 20,
+          category: "accessories",
+          brand: "Philips",
+          compatibility: ["H4 Socket", "Universal Fit"],
+          description:
+            "Ultra-bright LED headlight conversion kit, 300% brighter than stock.",
+          image: "led.jpg",
+        },
+        {
+          id: 4,
+          name: "High-Performance Spark Plug",
+          price: 320,
+          stock: 35,
+          category: "engine",
+          brand: "NGK",
+          compatibility: ["Most 4-Stroke Engines"],
+          description:
+            "Iridium spark plug for improved fuel efficiency and smoother acceleration.",
+          image: "spark.jpg",
+        },
+        {
+          id: 5,
+          name: "Racing Disc Brake Rotor",
+          price: 2100,
+          stock: 5,
+          category: "brakes",
+          brand: "Galfer",
+          compatibility: ["Wave Rotor Design", "Universal 320mm"],
+          description:
+            "Wave-style floating brake rotor for improved heat dissipation.",
+          image: "rotor.jpg",
+        },
+        {
+          id: 6,
+          name: "Motorcycle Cover Waterproof",
+          price: 780,
+          stock: 14,
+          category: "accessories",
+          brand: "CoverKing",
+          compatibility: ["Sport Bikes", "Cruisers", "Scooters"],
+          description:
+            "All-weather motorcycle cover with heat-resistant panels.",
+          image: "cover.jpg",
+        },
+        {
+          id: 7,
+          name: "Adjustable Brake Lever",
+          price: 450,
+          stock: 22,
+          category: "brakes",
+          brand: "MZS",
+          compatibility: ["Universal Fit"],
+          description:
+            "CNC machined adjustable brake lever with 6-position adjustment.",
+          image: "lever.jpg",
+        },
+        {
+          id: 8,
+          name: "Oil Filter",
+          price: 280,
+          stock: 45,
+          category: "engine",
+          brand: "K&N",
+          compatibility: ["Most 4-Stroke Motorcycles"],
+          description: "High-flow oil filter with anti-drain back valve.",
+          image: "oilfilter.jpg",
+        },
+        {
+          id: 9,
+          name: "LED Turn Signals",
+          price: 650,
+          stock: 18,
+          category: "electrical",
+          brand: "Rizoma",
+          compatibility: ["Universal Fit"],
+          description:
+            "Modern sequential LED turn signals with dynamic flow pattern.",
+          image: "signals.jpg",
+        },
+        {
+          id: 10,
+          name: "Chain & Sprocket Kit",
+          price: 2850,
+          stock: 7,
+          category: "engine",
+          brand: "DID",
+          compatibility: ["520 Chain", "Sport Bikes"],
+          description:
+            "Complete chain and sprocket kit for optimal power transfer.",
+          image: "chain.jpg",
+        },
+      ];
 
-        if (!country) {
-          resultDiv.innerHTML =
-            "<p class='error'>⚠️ Please enter a country.</p>";
+      // Get saved items from localStorage
+      function getSavedItems() {
+        const saved = localStorage.getItem("savedMotorcycleParts");
+        return saved ? JSON.parse(saved) : [];
+      }
+
+      // Save items to localStorage
+      function saveToLocalStorage(items) {
+        localStorage.setItem("savedMotorcycleParts", JSON.stringify(items));
+        updateSavedCount();
+      }
+
+      // Check if item is already saved
+      function isItemSaved(productId) {
+        const savedItems = getSavedItems();
+        return savedItems.some((item) => item.id === productId);
+      }
+
+      // Save a product
+      function saveProduct(productId) {
+        const product = motorcycleProducts.find((p) => p.id === productId);
+        if (!product) return;
+
+        const savedItems = getSavedItems();
+
+        // Check for duplicates
+        if (isItemSaved(productId)) {
+          showToast("❌ This product is already saved!", "error");
           return;
         }
 
-        const url = `http://universities.hipolabs.com/search?country=${country}`;
+        // Create saved item object with meaningful data
+        const savedItem = {
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          category: product.category,
+          brand: product.brand,
+          stock: product.stock,
+          compatibility: product.compatibility,
+          description: product.description,
+          savedAt: new Date().toLocaleString(),
+        };
 
-        try {
-          resultDiv.innerHTML = "<p>🔎 Searching...</p>";
+        savedItems.push(savedItem);
+        saveToLocalStorage(savedItems);
 
-          const response = await fetch(url);
-          const data = await response.json();
+        showToast(`✅ "${product.name}" saved successfully!`);
 
-          if (data.length === 0) {
-            resultDiv.innerHTML = "<p class='error'>No universities found.</p>";
-            return;
-          }
+        // Update button state
+        const saveBtn = document.querySelector(
+          `.save-btn[data-id="${productId}"]`,
+        );
+        if (saveBtn) {
+          saveBtn.textContent = "✓ Saved";
+          saveBtn.classList.add("saved");
+          saveBtn.disabled = true;
+        }
 
-          let list = "<ul>";
+        updateSavedCount();
+      }
 
-          data.forEach((uni) => {
-            const saved = isSaved(uni.name);
+      // Update saved count badge
+      function updateSavedCount() {
+        const savedItems = getSavedItems();
+        const count = savedItems.length;
+        const badge = document.getElementById("savedCountBadge");
+        if (badge) {
+          badge.textContent = count;
+        }
+      }
 
-            list += `
-        <li>
-          <strong>${uni.name}</strong><br>
-          <a href="${uni.web_pages[0]}" target="_blank">${uni.web_pages[0]}</a><br>
+      // Show toast message
+      function showToast(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.className = `toast-message ${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
 
-          ${
-            saved
-              ? `<button class="done-btn" disabled>✅ Done</button>`
-              : `<button class="save-btn" onclick='saveUniversity(${JSON.stringify(uni)})'>
-                  💾 Save
-                </button>`
-          }
-        </li>
-      `;
+        setTimeout(() => {
+          toast.remove();
+        }, 3000);
+      }
+
+      // Search products
+      function searchProducts() {
+        const query = document
+          .getElementById("searchQuery")
+          .value.toLowerCase();
+        const category = document.getElementById("categoryFilter").value;
+
+        let results = [...motorcycleProducts];
+
+        // Filter by search query
+        if (query) {
+          results = results.filter(
+            (product) =>
+              product.name.toLowerCase().includes(query) ||
+              product.description.toLowerCase().includes(query) ||
+              product.category.toLowerCase().includes(query) ||
+              product.brand.toLowerCase().includes(query),
+          );
+        }
+
+        // Filter by category
+        if (category !== "all") {
+          results = results.filter((product) => product.category === category);
+        }
+
+        // Update count
+        document.getElementById("resultCount").textContent = results.length;
+
+        // Display results
+        const container = document.getElementById("resultsContainer");
+
+        if (results.length === 0) {
+          container.innerHTML =
+            '<div style="text-align: center; padding: 3rem; color: #999;">No products found. Try a different search term!</div>';
+          return;
+        }
+
+        container.innerHTML = results
+          .map((product) => {
+            const isSaved = isItemSaved(product.id);
+            return `
+                <div class="product-card">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-category">${product.category.toUpperCase()}</div>
+                    <div class="product-price">₱${product.price.toLocaleString()}</div>
+                    <div class="product-stock">${product.stock > 0 ? `✅ In Stock (${product.stock} units)` : "❌ Out of Stock"}</div>
+                    <div class="product-details">
+                        <strong>Brand:</strong> ${product.brand}<br>
+                        <strong>Compatibility:</strong> ${product.compatibility.slice(0, 2).join(", ")}${product.compatibility.length > 2 ? "..." : ""}<br>
+                        <strong>Description:</strong> ${product.description.substring(0, 80)}...
+                    </div>
+                    <button class="save-btn ${isSaved ? "saved" : ""}" data-id="${product.id}" onclick="saveProduct(${product.id})" ${isSaved ? "disabled" : ""}>
+                        ${isSaved ? "✓ Saved" : "💾 Save to Collection"}
+                    </button>
+                </div>
+            `;
+          })
+          .join("");
+      }
+
+      // Add enter key support
+      document.addEventListener("DOMContentLoaded", () => {
+        searchProducts();
+        updateSavedCount();
+
+        document
+          .getElementById("searchQuery")
+          .addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              searchProducts();
+            }
           });
-
-          list += "</ul>";
-          resultDiv.innerHTML = list;
-        } catch {
-          resultDiv.innerHTML = "<p class='error'>Error loading data</p>";
-        }
-      }
-
-      /* ✅ CHECK IF SAVED */
-      function isSaved(name) {
-        const saved =
-          JSON.parse(localStorage.getItem("savedUniversities")) || [];
-        return saved.some((item) => item.name === name);
-      }
-
-      /* ✅ SAVE FUNCTION */
-      function saveUniversity(uni) {
-        let saved = JSON.parse(localStorage.getItem("savedUniversities")) || [];
-
-        const exists = saved.some((item) => item.name === uni.name);
-
-        if (exists) {
-          alert("⚠️ Already saved!");
-          return;
-        }
-
-        saved.push({
-          name: uni.name,
-          website: uni.web_pages[0],
-        });
-
-        localStorage.setItem("savedUniversities", JSON.stringify(saved));
-
-        alert("✅ Saved!");
-
-        // 🔥 Refresh UI
-        getUniversities();
-      }
+      });
     </script>
   </body>
 </html>
