@@ -3,25 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log In | EJ SpeedZone</title>
+    <title>Log In | EJ SpeedZone Motorparts</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <section class="auth-page">
       <div class="auth-card">
         <h2>Log In</h2>
-        <p class="auth-text">Welcome back to EJ SpeedZone</p>
+        <p class="auth-text">Welcome back to EJ SpeedZone Motorparts</p>
 
-        <form id="loginForm">
+        <form id="loginForm" novalidate>
           <input
             type="email"
             id="loginEmail"
+            name="email"
             placeholder="Email Address"
             required
           />
           <input
             type="password"
             id="loginPassword"
+            name="password"
             placeholder="Password"
             required
           />
@@ -35,6 +38,26 @@
       </div>
     </section>
 
-    <script src="script.js"></script>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("loginEmail").value.trim();
+          const password = document.getElementById("loginPassword").value;
+
+          if (!email || !password || password.length < 6) {
+            alert(
+              "Please enter a valid email and password (at least 6 characters).",
+            );
+            return;
+          }
+
+          // For now: fake login success
+          alert("Logged in successfully! Redirecting to profile...");
+          window.location.href = "profile.html";
+        });
+    </script>
   </body>
 </html>

@@ -3,27 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign Up | EJ SpeedZone</title>
+    <title>Sign Up | EJ SpeedZone Motorparts</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- Optional: set a small favicon -->
+    <!-- <link rel="icon" href="images/favicon.png" type="image/png" /> -->
   </head>
+
   <body>
     <section class="auth-page">
       <div class="auth-card">
         <h2>Create Account</h2>
-        <p class="auth-text">Join EJ SpeedZone today</p>
+        <p class="auth-text">Join EJ SpeedZone Motorparts today</p>
 
-        <form id="signupForm">
-          <input type="text" id="fullName" placeholder="Full Name" required />
-          <input type="email" id="email" placeholder="Email Address" required />
+        <form id="signupForm" novalidate>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Full Name"
+            required
+          />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email Address"
+            required
+          />
           <input
             type="password"
             id="password"
+            name="password"
             placeholder="Password"
             required
           />
           <input
             type="password"
             id="confirmPassword"
+            name="confirmPassword"
             placeholder="Confirm Password"
             required
           />
@@ -37,6 +54,26 @@
       </div>
     </section>
 
-    <script src="script.js"></script>
+    <!-- Form validation script (optional, match your script.js style) -->
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match. Please try again.");
+            return;
+          }
+
+          // For now: success feedback
+          alert("Account created successfully! You can now log in.");
+          this.reset();
+        });
+    </script>
   </body>
 </html>

@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // ADMIN LOGIN CHECK
-      if (email === "admin@gmail.com") {
+      if (email === "Admin@gmail.com") {
         alert("Admin login successful 👑");
         window.location.href = "admin.html";
         return;
