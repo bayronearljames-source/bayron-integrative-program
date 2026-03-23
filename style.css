@@ -4,13 +4,14 @@
   --blue: #1e40af;
   --light-blue: #3b82f6;
   --gray: #9ca3af;
+  --light-gray: #e5e7eb;
   --white: #ffffff;
 }
 
 /* BODY */
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
   line-height: 1.6;
   color: var(--gray);
   background-color: var(--black);
@@ -52,9 +53,10 @@ body {
 }
 
 .auth-buttons a {
-  margin-left: 15px;
+  margin-left: 12px;
   text-decoration: none;
   font-weight: bold;
+  font-size: 0.95rem;
 }
 
 /* LOGIN & SIGNUP BUTTONS */
@@ -63,11 +65,12 @@ body {
   padding: 8px 20px;
   border: 1px solid var(--light-blue);
   border-radius: 20px;
-  transition: background-color 0.3s;
+  transition: 0.3s ease;
 }
 
 .login-btn:hover {
-  background-color: var(--light-blue);
+  background-color: rgba(59, 130, 246, 0.2);
+  transform: scale(1.03);
 }
 
 .signup-btn {
@@ -75,11 +78,12 @@ body {
   background-color: var(--blue);
   color: var(--white);
   border-radius: 20px;
-  transition: background-color 0.3s;
+  transition: 0.3s ease;
 }
 
 .signup-btn:hover {
   background-color: var(--light-blue);
+  transform: scale(1.03);
 }
 
 /* HERO */
@@ -87,7 +91,8 @@ body {
   background-image: url("images/background1.webp");
   background-size: cover;
   background-position: center;
-  height: 520px;
+  min-height: 70vh;
+  max-height: 700px;
   margin-top: 70px;
   display: flex;
   align-items: center;
@@ -111,14 +116,17 @@ body {
 .hero-text h1 {
   font-size: 3.2rem;
   color: var(--white);
+  margin-bottom: 0.3rem;
+  font-weight: 700;
 }
 
 .hero-text p {
   color: #dbeafe;
   margin-bottom: 25px;
+  font-size: 1.1rem;
 }
 
-/* CTA */
+/* CTA BUTTONS */
 .cta-btn {
   display: inline-block;
   padding: 14px 34px;
@@ -127,11 +135,18 @@ body {
   text-decoration: none;
   font-weight: bold;
   border-radius: 30px;
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.35);
+  transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(30, 64, 175, 0.5);
 }
 
 /* SECTIONS */
 .section {
-  padding: 70px 0;
+  padding: 80px 0;
 }
 
 .section.light {
@@ -142,26 +157,37 @@ body {
   text-align: center;
   color: var(--white);
   margin-bottom: 30px;
+  font-size: 1.8rem;
 }
 
 /* GRID */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-top: 10px;
 }
 
 /* CARDS */
 .card {
   background-color: #020617;
-  padding: 28px;
+  padding: 30px 24px;
   border-radius: 14px;
   text-align: center;
   border: 1px solid #1e293b;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #3b82f6;
+  box-shadow: 0 14px 30px rgba(59, 130, 246, 0.35);
 }
 
 .card h3 {
   color: var(--white);
+  margin-bottom: 8px;
 }
 
 .card p {
@@ -172,6 +198,7 @@ body {
   max-width: 180px;
   width: 100%;
   margin-bottom: 15px;
+  border-radius: 8px;
 }
 
 /* CATEGORY BUTTON */
@@ -182,6 +209,12 @@ body {
   color: var(--white);
   text-decoration: none;
   border-radius: 25px;
+  transition: 0.3s ease;
+}
+
+.category-btn:hover {
+  background-color: var(--light-blue);
+  transform: scale(1.05);
 }
 
 /* FOOTER */
@@ -191,6 +224,21 @@ footer {
   text-align: center;
   padding: 30px 0;
   border-top: 1px solid #1e293b;
+}
+
+/* BACK TO HOME in footer */
+footer .back-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer .back-link:hover {
+  color: #3b82f6;
+  text-decoration: underline;
 }
 
 /* ============================
@@ -210,7 +258,7 @@ footer {
 
 .auth-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   background-color: #020617;
   padding: 40px 35px;
   border-radius: 18px;
@@ -304,9 +352,43 @@ footer {
   color: #9ca3af;
   font-size: 0.85rem;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: color 0.3s ease;
 }
 
 .back-link:hover {
   color: #3b82f6;
+}
+
+/* MOBILE TWEAKS */
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: 2.3rem;
+  }
+
+  .hero-text p {
+    font-size: 1rem;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
+.api-btn {
+  background: linear-gradient(135deg, #e63946, #ff9f1c);
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.api-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4);
 }
